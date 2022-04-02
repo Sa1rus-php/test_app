@@ -26,6 +26,9 @@
         <div class="row-auto">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        <div class="row-auto">
+            <a href="/" class="btn btn-primary">Back to home page</a>
+        </div>
     </div>
 
 </form>
