@@ -6,7 +6,6 @@ use Tests\TestCase;
 
 class DistanceTest extends TestCase
 {
-
     public function test_hamming()
     {
         $response = $this->post('/api/hamming/submit', [
@@ -19,7 +18,6 @@ class DistanceTest extends TestCase
                 '0' => 2,
             ]);
     }
-
     public function test_levenshtein()
     {
         $response = $this->post('/api/levenshtein/submit', [
