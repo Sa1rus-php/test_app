@@ -16,23 +16,65 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
+    <div class="container-">
         <a class="navbar-brand" href="#">Choose which method you want to use!</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/hamming">Hamming</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/levenshtein">Levenshtein</a>
-                </li>
-            </ul>
-        </div>
     </div>
 </nav>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form id="levenshtein">
+                <h3>Levenshtein</h3>
+                <label for="first_string" class="form-label">First string</label>
+                <input type="text" class="form-control" id="first_string" aria-describedby="emailHelp">
+                </br>
+                <label for="second_string" class="form-label">Second string</label>
+                <input type="text" class="form-control" id="second_string">
+                </br>
+                <button class="btn btn-primary" id="levenshtein">Levenshtein</button>
+                <button class="btn btn-primary" id="hamming">Hamming</button>
+                </br>
+                <div class="alert alert-success" id="success" role="alert" style="display:none;" ></div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
+<script type="text/javascript">
+
+    $('#levenshtein').on('click', function (e) {
+        e.preventDefault();
+
+        send("/api/levenshtein/submit")
+    });
+
+    $('#hamming').on('click', function (e){
+        e.preventDefault();
+
+        send("/api/hamming/submit")
+    });
+
+    function send(link) {
+        $.ajax({
+            url: link,
+            type:"POST",
+            data:{
+                "_token": "{{ csrf_token() }}",
+                first_string: $('#first_string').val(),
+                second_string: $('#second_string').val(),
+            },
+            success:function(response) {
+                $('#success').show().text('Answer: ' + response.value);
+            },
+            error:function (error) {
+
+            }
+        });
+    }
+</script>
 </html>

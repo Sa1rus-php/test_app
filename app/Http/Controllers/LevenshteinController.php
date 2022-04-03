@@ -22,10 +22,9 @@ class LevenshteinController extends Controller
      */
     public function distance(Request $request, Distance $distance)
     {
-        $distance->setStrings($request->first_levenshtein, $request->second_levenshtein);
+        $distance->setStrings($request->first_string, $request->second_string);
 
         return response()->json([
-            'status' => 'ok',
             'value' => $distance->distanceLevenshtein()
         ]);
     }

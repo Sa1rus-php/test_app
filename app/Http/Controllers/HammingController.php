@@ -12,10 +12,17 @@ class HammingController extends Controller
         return view('hamming');
     }
 
+    /**
+     * @param Request $request
+     * @param Distance $distance
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function distance(Request $request, Distance $distance)
     {
-        $source = $request->input('first_hamming');
-        $dest = $request->input('second_hamming');
-        return $distance->distance_hamming($source,$dest);
+        $distance->setStrings($request->first_string, $request->second_string);
+
+        return response()->json([
+            'value' => $distance->distanceHamming()
+        ]);
     }
 }
