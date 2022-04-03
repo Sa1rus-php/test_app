@@ -72,7 +72,7 @@
                 $('#success').show().text('Answer: ' + response.value);
             },
             error:function (error) {
-
+                $('#success').show().text('Error!');
             }
         });
     }
