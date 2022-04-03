@@ -2,57 +2,123 @@
 
 namespace App\Services\Distance;
 
-use Illuminate\Http\Request;
-
+/**
+ *
+ */
 class Distance implements DistanceInterface
 {
+    /**
+     * @var
+     * @type string
+     */
+    private $source;
 
-    public function distance_hamming($source, $dest)
+    /**
+     * @var
+     * @type string
+     */
+    private $dest;
+
+    /**
+     * @var
+     * @type int
+     */
+    private $sourceLength;
+
+    /**
+     * @var
+     * @type int
+     */
+    private $destLength;
+
+    /**
+     * @param string $source
+     * @param string $dest
+     */
+    public function setStrings(string $source, string $dest): void
     {
-        if ($source == $dest) {
-            return 0;
-        }
-        list($slen, $dlen) = [strlen($source), strlen($dest)];
-        if ($slen == 0 || $dlen == 0) {
-            return $dlen ? $dlen : $slen;
-        }
-        $dist = range(0, $dlen);
-        for ($i = 0; $i < $slen; $i++) {
-            $_dist = [$i + 1];
-            for ($j = 0; $j < $dlen; $j++) {
-                $cost = ($source[$i] == $dest[$j]) ? 0 : 1;
-                $_dist[$j + 1] = min(
-                    $dist[$j + 1] + 1,   // deletion
-                    $dist[$j] + $cost    // substitution
-                );
-            }
-            $dist = $_dist;
-        }
-        return response()->json([$dist[$dlen]]);
+        list($this->source, $this->dest, $this->sourceLength, $this->destLength) = [
+            $source,
+            $dest,
+            strlen($source),
+            strlen($dest)
+        ];
     }
 
-    public function distance_levenshtein($source, $dest)
+    /**
+     * dobavit opisanie
+     *
+     * @return int
+     */
+    public function distanceHamming(): int
     {
-        if ($source == $dest) {
-            return 0;
+        $check = $this->stringPreCheck();
+        if (!is_null($check))
+        {
+            return $check;
         }
-        list($slen, $dlen) = [strlen($source), strlen($dest)];
-        if ($slen == 0 || $dlen == 0) {
-            return $dlen ? $dlen : $slen;
-        }
-        $dist = range(0, $dlen);
-        for ($i = 0; $i < $slen; $i++) {
-            $_dist = [$i + 1];
-            for ($j = 0; $j < $dlen; $j++) {
-                $cost = ($source[$i] == $dest[$j]) ? 0 : 1;
-                $_dist[$j + 1] = min(
+
+        $dist = range(0, $this->destLength);
+        for ($i = 0; $i < $this->sourceLength; $i++) {
+            $tempDist = [$i + 1];
+            for ($j = 0; $j < $this->destLength; $j++) {
+                $cost = ($this->source[$i] == $this->dest[$j]) ? 0 : 1;
+                $tempDist[$j + 1] = min(
                     $dist[$j + 1] + 1,   // deletion
-                    $_dist[$j] + 1,      // insertion
                     $dist[$j] + $cost    // substitution
                 );
             }
-            $dist = $_dist;
+            $dist = $tempDist;
         }
-        return response()->json([$dist[$dlen]]);
+
+        return $dist[$this->destLength];
+    }
+
+    /**
+     * dobavit opisanie
+     *
+     * @param string $source
+     * @param string $dest
+     * @return int
+     */
+    public function distanceLevenshtein(): int
+    {
+        $check = $this->stringPreCheck();
+        if (!is_null($check))
+        {
+            return $check;
+        }
+
+        $dist = range(0, $this->destLength);
+        for ($i = 0; $i < $this->sourceLength; $i++) {
+            $tempDist = [$i + 1];
+            for ($j = 0; $j < $this->destLength; $j++) {
+                $cost = ($this->source[$i] == $this->dest[$j]) ? 0 : 1;
+                $tempDist[$j + 1] = min(
+                    $dist[$j + 1] + 1,   // deletion
+                    $tempDist[$j] + 1,      // insertion
+                    $dist[$j] + $cost    // substitution
+                );
+            }
+            $dist = $tempDist;
+        }
+
+        return $dist[$this->destLength];
+    }
+
+    /**
+     * @return int|null
+     */
+    private function stringPreCheck():? int
+    {
+        if ($this->source == $this->dest) {
+            return 0;
+        }
+
+        if ($this->sourceLength == 0 || $this->destLength == 0) {
+            return $this->destLength != 0 ? $this->destLength : $this->sourceLength;
+        }
+
+        return null;
     }
 }
