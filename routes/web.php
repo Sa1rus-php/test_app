@@ -13,5 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'MainController@index');
-Route::get('/hamming', 'HammingController@index');
-Route::get('/levenshtein', 'LevenshteinController@index');
