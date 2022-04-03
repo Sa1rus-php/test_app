@@ -30,7 +30,6 @@
             <a href="/" class="btn btn-primary">Back to home page</a>
         </div>
     </div>
-
 </form>
 </body>
 <script type="text/javascript">
