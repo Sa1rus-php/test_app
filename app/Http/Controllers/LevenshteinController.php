@@ -7,16 +7,27 @@ use Illuminate\Http\Request;
 
 class LevenshteinController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
         return view('levenshtein');
     }
 
+    /**
+     * @param Request $request
+     * @param Distance $distance
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function distance(Request $request, Distance $distance)
     {
-        $source = $request->input('first_levenshtein');
-        $dest = $request->input('second_levenshtein');
-        return $distance->distance_levenshtein($source,$dest);
+        $distance->setStrings($request->first_levenshtein, $request->second_levenshtein);
+
+        return response()->json([
+            'status' => 'ok',
+            'value' => $distance->distanceLevenshtein()
+        ]);
     }
 
 }

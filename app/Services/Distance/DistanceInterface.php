@@ -2,11 +2,15 @@
 
 namespace App\Services\Distance;
 
-use Illuminate\Http\Request;
-
 interface DistanceInterface
 {
-    public function distance_hamming($source, $dest);
+    /**
+     * @return int
+     */
+    public function distanceHamming(): int;
 
-    public function distance_levenshtein($source, $dest);
+    /**
+     * @return int
+     */
+    public function distanceLevenshtein(): int;
 }
