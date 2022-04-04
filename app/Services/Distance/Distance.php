@@ -3,7 +3,7 @@
 namespace App\Services\Distance;
 
 /**
- *
+ * Service for calculation distance Hamming or Levenshtein
  */
 class Distance implements DistanceInterface
 {

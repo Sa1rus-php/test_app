@@ -35,6 +35,7 @@
                 <button class="btn btn-outline-secondary" type="button" id="hamming">Hamming</button>
             </div>
                 <div class="alert alert-success" id="success" role="alert" style="display:none;" ></div>
+                <div class="alert alert-danger" id="error" role="alert" style="display:none;" ></div>
             </div>
         </div>
     </div>
@@ -56,6 +57,9 @@
     });
 
     function send(link) {
+
+        $('#success').hide();
+
         $.ajax({
             url: link,
             type:"POST",
@@ -68,7 +72,7 @@
                 $('#success').show().text('Answer: ' + response.value);
             },
             error:function (error) {
-                $('#success').show().text('Error!');
+                $('#error').show().text('Answer: ' + error.responseJSON.status);
             }
         });
     }
