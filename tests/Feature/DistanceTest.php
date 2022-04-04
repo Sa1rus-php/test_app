@@ -21,6 +21,7 @@ class DistanceTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
+                'status' => 'ok',
                 'value' => 2,
             ]);
     }
@@ -39,6 +40,7 @@ class DistanceTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
+                'status' => 'ok',
                 'value' => 2,
             ]);
     }

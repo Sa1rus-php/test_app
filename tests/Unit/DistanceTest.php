@@ -20,20 +20,15 @@ class DistanceTest extends TestCase
         $this->assertEquals(2, $result);
     }
 
-    public function testErrorLevenshteinNull()
-    {
-        $service = new Distance();
-        $service->setStrings('this is a test','');
-        $result = $service->distanceLevenshtein();
-        $this->assertEquals(2, $result);
-    }
-
+    /**
+     * Testing levenshtein , if result 0 its error
+     */
     public function testErrorLevenshteinSame()
     {
         $service = new Distance();
         $service->setStrings('this is a test','this is a test');
         $result = $service->distanceLevenshtein();
-        $this->assertEquals(2, $result);
+        $this->assertEquals(null, $result);
     }
 
     /**
@@ -49,20 +44,15 @@ class DistanceTest extends TestCase
          $this->assertEquals(2, $result);
     }
 
-    public function testErrorHammingNull()
-    {
-        $service = new Distance();
-        $service->setStrings('this is a test','');
-        $result = $service->distanceHamming();
-        $this->assertEquals(2, $result);
-    }
-
+    /**
+     * Testing hamming , if result 0 its error
+     */
     public function testErrorHammingSame()
     {
         $service = new Distance();
         $service->setStrings('this is a test','this is a test');
         $result = $service->distanceHamming();
-        $this->assertEquals(2, $result);
+        $this->assertEquals(null, $result);
     }
 
 }
