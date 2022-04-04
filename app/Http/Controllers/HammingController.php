@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class HammingController extends Controller
 {
-    public function index()
-    {
-        return view('hamming');
-    }
-
     /**
      * @param Request $request
      * @param Distance $distance

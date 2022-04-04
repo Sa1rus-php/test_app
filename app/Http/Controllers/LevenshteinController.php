@@ -8,14 +8,6 @@ use Illuminate\Http\Request;
 class LevenshteinController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index()
-    {
-        return view('levenshtein');
-    }
-
-    /**
      * @param Request $request
      * @param Distance $distance
      * @return \Illuminate\Http\JsonResponse
