@@ -16,7 +16,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-">
+    <div class="container-fluid">
         <a class="navbar-brand" href="#">Choose which method you want to use!</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,19 +27,15 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form id="levenshtein">
-                <h3>Levenshtein</h3>
-                <label for="first_string" class="form-label">First string</label>
-                <input type="text" class="form-control" id="first_string" aria-describedby="emailHelp">
-                </br>
-                <label for="second_string" class="form-label">Second string</label>
-                <input type="text" class="form-control" id="second_string">
-                </br>
-                <button class="btn btn-primary" id="levenshtein">Levenshtein</button>
-                <button class="btn btn-primary" id="hamming">Hamming</button>
-                </br>
+            <div class="input-group mb-3">
+                <span class="input-group-text">First and second string</span>
+                <input type="text" aria-label="First strong" id="first_string" class="form-control">
+                <input type="text" aria-label="Second string" id="second_string"class="form-control">
+                <button class="btn btn-outline-secondary" type="button" id="levenshtein">Levenshtein</button>
+                <button class="btn btn-outline-secondary" type="button" id="hamming">Hamming</button>
+            </div>
                 <div class="alert alert-success" id="success" role="alert" style="display:none;" ></div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

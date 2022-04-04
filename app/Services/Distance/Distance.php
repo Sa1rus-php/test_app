@@ -46,7 +46,7 @@ class Distance implements DistanceInterface
     }
 
     /**
-     * dobavit opisanie
+     * Hamming distance calculation
      *
      * @return int
      */
@@ -75,7 +75,7 @@ class Distance implements DistanceInterface
     }
 
     /**
-     * dobavit opisanie
+     * Levenshtein distance calculation
      *
      * @param string $source
      * @param string $dest
